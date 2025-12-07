@@ -46,9 +46,50 @@
 | PATCH | `/api/payouts/{id}/` | Частичное обновление заявки (например, статус) |
 | DELETE | `/api/payouts/{id}/` | Удаление заявки |
 
+
 - Формат ошибок и ответов корректный и предсказуемый
 - Асинхронная обработка с Celery: при создании заявки запускается задача, которая обновляет статус
 
 ---
 
 ## Запуск проекта
+
+Выполнить клонирование репозитория.
+```
+git clone https://github.com/Fitness-Developer/TZ_payout_task.git
+cd TZ_payout_task
+```
+
+### Запуск через Docker
+Создайте файл .env.docker и скопируйте содержимое для запуска -
+```
+DJANGO_SECRET_KEY=dev-secret-docker
+DEBUG=1
+
+POSTGRES_DB=payouts
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+
+CELERY_BROKER_URL=redis://redis:6379/0
+CELERY_RESULT_BACKEND=redis://redis:6379/0
+```
+В консоль прописываем основную команду -
+```
+docker-compose up --build 
+```
+Для обновлений в будущем - 
+```
+docker-compose down 
+```
+После запуска, проект будет доступен по адресу - http://127.0.0.1:8000/api/payouts/
+
+Миграции и тесты уже автоматически запускаются в docker-compose, чтобы руками не прописывать долго.
+Отдельно для запуска тестов можно прописать - 
+```
+docker compose up test
+```
+Все API проверял через Postman, чтобы точно убедиться в их корректной работе.
+Скриншоты, если нужно, могу прислать HR в лс.
+ 

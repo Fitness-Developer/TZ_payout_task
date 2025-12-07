@@ -1,18 +1,13 @@
 FROM python:3.10-slim
 
-# Установим рабочую директорию
 WORKDIR /code
 
-# Копируем зависимости
 COPY requirements.txt /code/
 
-# Устанавливаем зависимости
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Копируем весь проект
 COPY . /code
 
-# Окружение
 ENV PYTHONUNBUFFERED=1
 ENV DJANGO_SECRET_KEY=dev-secret
 ENV DEBUG=1

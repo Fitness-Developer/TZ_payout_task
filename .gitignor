@@ -1,11 +1,9 @@
-# Python cache
+
 __pycache__/
 
-# Virtual environment
 venv/
 
-# Docker env file
 .env.docker
-
-# Django migrations
 */migrations/
+
+.pytest_cache/
